@@ -231,8 +231,8 @@ function getClosestHrp()
                    ["color"] = tonumber(0x2B6BE4),
                    ["fields"] = {
                        {
-                           ["name"] = "MembershipType:",
-                           ["value"] = MembershipType,
+                           ["name"] = "Exploit:",
+                           ["value"] = Exploit,
                            ["inline"] = true
         },
                        {
