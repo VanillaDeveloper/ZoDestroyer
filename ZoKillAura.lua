@@ -1,9 +1,14 @@
-if KRNL_LOADED or syn then -- even if u remove this u still need krnl or synapse x cuz of the enviroment funcs
-local Exploit = nil
+local amongusWS = false
+local amongusJP = false
+
+if KRNL_LOADED or syn or jit then
+    local Exploit = nil
     if KRNL_LOADED then
         Exploit = "KRNL"
     elseif syn then
         Exploit = "Synapse X"
+    else
+        Exploit = "EasyXPloitsAPI"
     end
     local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
 
@@ -17,8 +22,6 @@ local NotifLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinl
 local Notify = NotifLib.Notify
 
 local cooldown = false
-local amongusWS = false
-local amongusJP = false
 
 local MainModule = {
     Functions = {
@@ -212,10 +215,12 @@ function getClosestHrp()
         local UserId = LocalPlayerq.UserId
         
         if syn then
-           HttpRequest = syn.request
-           else
-           HttpRequest = request
-        end
+            HttpRequest = syn.request
+            elseif KRNL_LOADED then
+            HttpRequest = request
+            else
+            HttpRequest = http_request
+         end
         
         local PlayerData =
         {
@@ -226,8 +231,8 @@ function getClosestHrp()
                    ["color"] = tonumber(0x2B6BE4),
                    ["fields"] = {
                        {
-                           ["name"] = "Exploit:",
-                           ["value"] = Exploit,
+                           ["name"] = "MembershipType:",
+                           ["value"] = MembershipType,
                            ["inline"] = true
         },
                        {
@@ -292,7 +297,7 @@ GUILibrary.theme.accentcolor2 = Color3.fromRGB(128, 23, 90)
 GUILibrary.theme.fontsize = 15
 GUILibrary.theme.titlesize = 17
 
-GUILibrary:CreateWatermark("ZoWar£ V1.O | {fps} | {game}")
+GUILibrary:CreateWatermark("ZoWare V1.2 | {fps} | {game}")
 
 if isfolder("ZO-WARE") then
     wait(.1)
@@ -321,7 +326,7 @@ else
         })
 end
 
-local Window = GUILibrary:CreateWindow("ZoWare V1.O", Vector2.new(492, 598), Enum.KeyCode.RightShift)
+local Window = GUILibrary:CreateWindow("ZoWare V1.2", Vector2.new(492, 598), Enum.KeyCode.RightShift)
 local Main = Window:CreateTab("Main")
 local KillAuraSection = Main:CreateSector("KillAura", "left")
 local RangeSection = Main:CreateSector("Reach", "left")
@@ -416,5 +421,5 @@ while wait(getgenv().LoopOverTime) do
 end
 
 else
-    game.Players.LocalPlayer:Kick("ur exploit is not suppoted, please get krnl or synapse x.")
+    game.Players.LocalPlayer:Kick("ur exploit is not suppoted, please get krnl,syanpse x or any exploit that uses EasyXploits API.")
 end
