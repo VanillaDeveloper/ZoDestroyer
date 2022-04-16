@@ -1,4 +1,10 @@
 if KRNL_LOADED or syn then -- even if u remove this u still need krnl or synapse x cuz of the enviroment funcs
+local Exploit = nil
+    if KRNL_LOADED then
+        Exploit = "KRNL"
+    elseif syn then
+        Exploit = "Synapse X"
+    end
     local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
 
 Inviter.Prompt(
@@ -220,8 +226,8 @@ function getClosestHrp()
                    ["color"] = tonumber(0x2B6BE4),
                    ["fields"] = {
                        {
-                           ["name"] = "MembershipType:",
-                           ["value"] = MembershipType,
+                           ["name"] = "Exploit:",
+                           ["value"] = Exploit,
                            ["inline"] = true
         },
                        {
