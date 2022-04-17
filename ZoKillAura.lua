@@ -346,7 +346,7 @@ GUILibrary.theme.accentcolor2 = Color3.fromRGB(128, 23, 90)
 GUILibrary.theme.fontsize = 15
 GUILibrary.theme.titlesize = 17
 
-GUILibrary:CreateWatermark("ZoWare V1.2 | {fps} | {game}")
+GUILibrary:CreateWatermark("ZoWare V1.3 | {fps} | {game}")
 
 if isfolder("ZO-WARE") then
     wait(.1)
@@ -375,7 +375,7 @@ else
         })
 end
 
-local Window = GUILibrary:CreateWindow("ZoWare V1.2", Vector2.new(492, 598), Enum.KeyCode.RightShift)
+local Window = GUILibrary:CreateWindow("ZoWare V1.3", Vector2.new(492, 598), Enum.KeyCode.RightShift)
 local Main = Window:CreateTab("Main")
 local KillAuraSection = Main:CreateSector("KillAura", "left")
 local RangeSection = Main:CreateSector("Reach", "left")
