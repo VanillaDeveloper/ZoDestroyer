@@ -1,3 +1,4 @@
+-- (=)
 local amongusWS = false
 local amongusJP = false
 local amongusChatEvent = false
