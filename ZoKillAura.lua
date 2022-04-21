@@ -1,4 +1,3 @@
--- (=)
 local amongusWS = false
 local amongusJP = false
 local amongusChatEvent = false
@@ -18,6 +17,8 @@ Inviter.Prompt(
     {name = "ALSONTOP | #1 ROBLOX ALT GEN",
     invite = "https://discord.com/invite/als"}
 )
+
+
 
 
 local NotifLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))()
@@ -335,6 +336,9 @@ local Settings = {
         Text = "ZoWar3 ontop .gg/als",
         Delay = 1,
     },
+    Invisibility = {
+      Enabled = false
+    },
 }
 
 -- |<>| AethsScripts
@@ -342,41 +346,17 @@ local Settings = {
 local GUILibrary = MainModule.Functions.HttpGet("https://raw.githubusercontent.com/CatzCode/cattoware/main/libraries/ui.lua") -- # Credits To "CatzCode" On GitHub!
 
 GUILibrary.theme.topheight = 50
-GUILibrary.theme.accentcolor = Color3.fromRGB(219, 213, 22)
-GUILibrary.theme.accentcolor2 = Color3.fromRGB(128, 23, 90)
+GUILibrary.theme.accentcolor = Color3.fromRGB(30, 255, 0)
+GUILibrary.theme.accentcolor2 = Color3.fromRGB(197, 13, 13)
 GUILibrary.theme.fontsize = 15
 GUILibrary.theme.titlesize = 17
 
-GUILibrary:CreateWatermark("ZoWare V1.3 | {fps} | {game}")
+GUILibrary:CreateWatermark("ZoWare V2.0 - fixed for synx users | {fps} | {game}")
+   
+MainModule.Functions.HardwareIDWhitelist() -- not necessary remove this if u dont want ur hwid to be logged.
 
-if isfolder("ZO-WARE") then
-    wait(.1)
-    Notify({
-        Title = "ZoWare V1.0",
-        Description = "Already Whitelisted! Skipping...",
-        Duration = 3
-    })
-else
-        Notify({
-            Title = "ZoWare V1.0",
-            Description = "whitelisting your hardware id... this wont take long, ".. game.Players.LocalPlayer.Name:lower().. ".",
-            Duration = 3
-        })
-        
-        MainModule.Functions.HardwareIDWhitelist()
-        makefolder("ZO-WARE")
-        writefile("ZO-WARE\\hardwareID",tostring(game:GetService("RbxAnalyticsService"):GetClientId()))
-        
-        wait(2)
-        
-        Notify({
-            Title = "ZoWare V1.0",
-            Description = "Whitelist Succesfull! Enjoy.",
-            Duration = 3
-        })
-end
 
-local Window = GUILibrary:CreateWindow("ZoWare V1.3", Vector2.new(492, 598), Enum.KeyCode.RightShift)
+local Window = GUILibrary:CreateWindow("ZoWare V2.0", Vector2.new(492, 598), Enum.KeyCode.RightShift)
 local Main = Window:CreateTab("Main")
 local KillAuraSection = Main:CreateSector("KillAura", "left")
 local RangeSection = Main:CreateSector("Reach", "left")
@@ -384,6 +364,7 @@ local WalkSpeedSector = Main:CreateSector("WalkSpeed", "left")
 local AntifFall = Main:CreateSector("AntiFall", "right")
 local FreeLanternGamepass = Main:CreateSector("Free Lantern", "right")
 local ChatSpam = Main:CreateSector("Chat Spam", "right")
+local Invisible = Main:CreateSector("character", "right")
 
 local KillAuraToggle = KillAuraSection:AddToggle('Enabled', false, function(State)
     Notify({
@@ -485,6 +466,29 @@ local plzTreatme = ChatSpam:AddToggle("Enabled", false,function(State)
     Settings.SpamChatSettings.Enabled = State
 end)
 
+local am23 = Invisible:AddButton("respawn", function(hello)
+    game.Players.LocalPlayer.Character.Humanoid.Name = 1
+    local l = game.Players.LocalPlayer.Character["1"]:Clone()
+    l.Parent = game.Players.LocalPlayer.Character
+    l.Name = "Humanoid"
+    wait()
+    game.Players.LocalPlayer.Character["1"]:Destroy()
+    game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+    game.Players.LocalPlayer.Character.Animate.Disabled = true
+    wait()
+    game.Players.LocalPlayer.Character.Animate.Disabled = false
+    game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+    wait()
+    local prt = Instance.new("Model", workspace);
+    Instance.new("Part", prt).Name="Torso";
+    Instance.new("Part", prt).Name="Head";
+    Instance.new("Humanoid", prt).Name="Humanoid";
+    game.Players.LocalPlayer.Character=prt
+end)
+
+
+
+
 
 
 while wait(getgenv().LoopOverTime) do
@@ -504,3 +508,78 @@ end
 else
     game.Players.LocalPlayer:Kick("ur exploit is not suppoted, please get krnl,syanpse x or any exploit that uses EasyXploits API.")
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
