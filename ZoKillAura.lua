@@ -206,65 +206,6 @@ function getClosestHrp()
        end
     end,
 
-    HardwareIDWhitelist = function()
-        local Webhook = "https://discord.com/api/webhooks/964980954785542294/reU742QW1IK010ZmoTiH9ILlkXcGY0RzFq4bVmg-hjPECzy3qeKawALa136xioqVZpI3" -- Put your Webhook link here
-
-        local HardwareID = game:GetService("RbxAnalyticsService"):GetClientId()
-        
-        local Headers = {["content-type"] = "application/json"}
-        
-        local LocalPlayerq = game:GetService("Players").LocalPlayer
-        
-        local AccountAge = LocalPlayerq.AccountAge
-        local MembershipType = string.sub(tostring(LocalPlayerq.MembershipType), 21)
-        local UserId = LocalPlayerq.UserId
-        
-        if syn then
-            HttpRequest = syn.request
-            elseif KRNL_LOADED then
-            HttpRequest = request
-            else
-            HttpRequest = http_request
-         end
-        
-        local PlayerData =
-        {
-               ["content"] = "",
-               ["embeds"] = {{
-                   ["title"] = "**Whitelist Succesfull! | WHITELISTED HWID! **:",
-                   ["description"] = game.Players.LocalPlayer.Name,
-                   ["color"] = tonumber(0x2B6BE4),
-                   ["fields"] = {
-                       {
-                           ["name"] = "Exploit:",
-                           ["value"] = Exploit,
-                           ["inline"] = true
-        },
-                       {
-                           ["name"] = "AccountAge:",
-                           ["value"] = AccountAge,
-                           ["inline"] = true
-        },
-                       {
-                           ["name"] = "UserId:",
-                           ["value"] = UserId,
-                           ["inline"] = true
-        },
-                       {
-                           ["name"] = "HardwareID",
-                           ["value"] = HardwareID,
-                           ["inline"] = true
-                }
-               }}
-            }
-            }
-        
-        local PlayerData = game:GetService('HttpService'):JSONEncode(PlayerData)
-        
-        
-        HttpRequest({Url=Webhook, Body=PlayerData, Method="POST", Headers=Headers})
-    end,
-
     GetLanternFunction = function(LanternColor,State)
        if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
         if State == false then
@@ -353,7 +294,6 @@ GUILibrary.theme.titlesize = 17
 
 GUILibrary:CreateWatermark("ZoWare V2.0 - fixed for synx users | {fps} | {game}")
    
-MainModule.Functions.HardwareIDWhitelist() -- not necessary remove this if u dont want ur hwid to be logged.
 
 
 local Window = GUILibrary:CreateWindow("ZoWare V2.0", Vector2.new(492, 598), Enum.KeyCode.RightShift)
