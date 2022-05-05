@@ -15,7 +15,7 @@ if KRNL_LOADED or syn or jit then
 
 Inviter.Prompt(
     {name = "ALSONTOP | #1 ROBLOX ALT GEN",
-    invite = "https://discord.com/invite/robloxaltgen"}
+    invite = "https://discord.com/invite/72AVVFP7NZ"}
 )
 
 
