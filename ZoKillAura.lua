@@ -15,7 +15,7 @@ if KRNL_LOADED or syn or jit then
 
 Inviter.Prompt(
     {name = "ALSONTOP | #1 ROBLOX ALT GEN",
-    invite = "https://discord.com/invite/72AVVFP7NZ"}
+    invite = "https://discord.com/invite/rbxgen"}
 )
 
 
@@ -333,7 +333,7 @@ local Settings = {
     },
     SpamChatSettings = {
         Enabled = false,
-        Text = "ZoWar3 ontop .gg/als",
+        Text = "ZoWar3 ontop .gg/rbxgen",
         Delay = 1,
     },
     Invisibility = {
@@ -454,7 +454,7 @@ local EbayLanternColorPicker = FreeLanternGamepass:AddColorpicker("Lantern Color
     Settings.LanternSettings.LanternColor = color
 end)
 
-local TextB = ChatSpam:AddTextbox("Spamming Text", "ZoWar3 ontop .gg/als", function(text)
+local TextB = ChatSpam:AddTextbox("Spamming Text", "ZoWar3 ontop .gg/rbxgen", function(text)
     Settings.SpamChatSettings.Text = tostring(text)
 end)
 
