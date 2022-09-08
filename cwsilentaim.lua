@@ -158,8 +158,9 @@ firehit = function(character,arrow)
     }
     game:GetService("ReplicatedStorage").Communication.Events.RangedHit:FireServer(unpack(args))
 end
-local bruh = Instance.new("SelectionBox",workspace)
-bruh.Color3 = Color3.fromRGB(163, 61, 54)
+local bruh = Instance.new("Highlight",game.ReplicatedStorage)
+bruh.Adornee = nil
+bruh.FillColor = Color3.fromRGB(8, 0, 255) 
 local M = game.Players.LocalPlayer:GetMouse()
 local Cam = game.Workspace.CurrentCamera
 -- dev forum
@@ -371,6 +372,7 @@ while wait() do
         end
         closest = getClosestToMouse()
         if closest then
+            bruh.Parent = workspace
             bruh.Adornee = closest.Character
             Aiming.Text = "Aiming At: "..closest.Name
             PredictionV.Text = "Prediction Value: ".._G.PredictionVal
