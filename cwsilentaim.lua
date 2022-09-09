@@ -23,7 +23,7 @@ end)
 local antiragdoll = false
 
 local mt = getrawmetatable(game)
-make_writeable(mt)
+setreadonly(mt, false)
 
 local namecall = mt.__namecall
 
