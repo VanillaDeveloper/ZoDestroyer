@@ -364,7 +364,7 @@ Section:AddToggle('wallbang', false, function(val)
     end
 end)
 
-while wait() do
+while wait(.01) do
     pcall(function()
         local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
         if Tool:FindFirstChild("ClientAmmo") == nil then
