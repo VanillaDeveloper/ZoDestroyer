@@ -19,6 +19,24 @@ local oldnamecall; oldnamecall = hookmetamethod(game, "__namecall", function(sel
   
     return oldnamecall(self, unpack(args))
 end)
+
+local antiragdoll = false
+
+local mt = getrawmetatable(game)
+make_writeable(mt)
+
+local namecall = mt.__namecall
+
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...} --gets all arguments
+
+    if method == "ToggleRagdoll" and args[1] == true and antiragdoll == true then --check if the method firing is FireSerer (aka remote event) and if the first argument is Kick
+        return wait(9e9)
+    end
+    return namecall(self, ...)
+end)
+
 game.CollectionService:AddTag(game:GetService("Workspace").Map,'CAMERA_COLLISION_IGNORE_LIST')
 if _G.Wallbang == nil then
     _G.Wallbang = true
@@ -34,7 +52,7 @@ local predicted
 local silentaim = true
 local Players = game.Players
 local mouse = LocalPlayer:GetMouse()
-local function getClosestToMouse() -- got this from cheese bcuz im too lazy again and yes he got from devforum
+local function getClosestToMouse()
     local player, nearestDistance = nil, math.huge*9e9
     for i,v in pairs(Players:GetPlayers()) do
         if v ~= Players.LocalPlayer and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0 and v.Character:FindFirstChild("HumanoidRootPart") then
@@ -249,9 +267,13 @@ local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/CatzC
 local Window = Library:CreateWindow("cw silent aim", Vector2.new(492, 598), Enum.KeyCode.RightShift)
 local Main = Window:CreateTab("Main")
 local Section = Main:CreateSector("silent aim", "right")
+local Misc = Main:CreateSector("misc", "right")
 
 Section:AddToggle('Silent Aim', false, function(State)
     silentaim = State
+end)
+Misc:AddToggle('anti-ragdoll', false, function(State)
+    antiragdoll = State
 end)
 Section:AddDropdown("Hit Part", Parts, "Head", false, function(SelectedOpt)
     _G.HitPart = SelectedOpt
@@ -364,51 +386,55 @@ Section:AddToggle('wallbang', false, function(val)
     end
 end)
 
-while wait(.01) do
-    pcall(function()
-        local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
-        if Tool:FindFirstChild("ClientAmmo") == nil then
-            return
-        end
-        closest = getClosestToMouse()
-        if closest then
-            bruh.Parent = workspace
-            bruh.Adornee = closest.Character
-            Aiming.Text = "Aiming At: "..closest.Name
-            PredictionV.Text = "Prediction Value: ".._G.PredictionVal
-            Prediction = closest.Character.Head.CFrame + (closest.Character.Head.Velocity * _G.PredictionVal + Vector3.new(0, .1, 0))
-            predicted = (CFrame.lookAt(Tool.Contents.Handle.FirePoint.WorldCFrame.Position, Prediction.Position)).LookVector * 30;
-            Position.Text = "Position: "..Prediction.Position.X..", "..Prediction.Y..", "..Prediction.Y
-            local Vec = WorldToScreen(Prediction.Position)
-            Frame.Position = UDim2.new(0,Vec.X,0,Vec.Y)
-        end
-        if (ARROW and silentaim) then
+task.spawn(function()
+    while wait(.05) do
+        pcall(function()
+            local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            if Tool:FindFirstChild("ClientAmmo") == nil then
+                return
+            end
+            closest = getClosestToMouse()
             if closest then
-                if (ARROW.Position - closest.Character.HumanoidRootPart.Position).Magnitude <= _G.HitDistance then
-                    if _G.Percent == 100 then
-                        firehit(closest.Character,ARROW)
-                        ARROW = nil
-                        shot = false
-                    elseif _G.Percent ~= 100 then
-                        local percent = math.random(1,100)
-                        
-                        if percent >= Percent then
+                bruh.Parent = workspace
+                bruh.Adornee = closest.Character
+                if Frame.Visible == true then
+                    Aiming.Text = "Aiming At: "..closest.Name
+                    PredictionV.Text = "Prediction Value: ".._G.PredictionVal
+                    Prediction = closest.Character.Head.CFrame + (closest.Character.Head.Velocity * _G.PredictionVal + Vector3.new(0, .1, 0))
+                    predicted = (CFrame.lookAt(Tool.Contents.Handle.FirePoint.WorldCFrame.Position, Prediction.Position)).LookVector * 30;
+                    Position.Text = "Position: "..Prediction.Position.X..", "..Prediction.Y..", "..Prediction.Y
+                    local Vec = WorldToScreen(Prediction.Position)
+                    Frame.Position = UDim2.new(0,Vec.X,0,Vec.Y)
+                end
+            end
+            if (ARROW and silentaim) then
+                if closest then
+                    if (ARROW.Position - closest.Character.HumanoidRootPart.Position).Magnitude <= _G.HitDistance then
+                        if _G.Percent == 100 then
                             firehit(closest.Character,ARROW)
                             ARROW = nil
                             shot = false
+                        elseif _G.Percent ~= 100 then
+                            local percent = math.random(1,100)
+                            
+                            if percent >= Percent then
+                                firehit(closest.Character,ARROW)
+                                ARROW = nil
+                                shot = false
+                            end
                         end
                     end
                 end
             end
-        end
-        
-        if LocalPlayer.Character then
-            if (LocalPlayer.Character:FindFirstChild('Longbow') and _G.InstantCharge) then
-                for i,v in pairs(getconnections(Tool.ChargeProgressClient:GetPropertyChangedSignal("Value"))) do
-                    v:Disable()
-                end            
-                Tool.ChargeProgressClient.Value = 1
+            
+            if LocalPlayer.Character then
+                if (LocalPlayer.Character:FindFirstChild('Longbow') and _G.InstantCharge) then
+                    for i,v in pairs(getconnections(Tool.ChargeProgressClient:GetPropertyChangedSignal("Value"))) do
+                        v:Disable()
+                    end            
+                    Tool.ChargeProgressClient.Value = 1
+                end
             end
-        end
-    end)
-end
+        end)
+    end
+end)
