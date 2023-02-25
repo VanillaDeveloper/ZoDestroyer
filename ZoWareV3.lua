@@ -17,10 +17,10 @@ local Window = Rayfield:CreateWindow({
     KeySettings = {
         Title = "ZoWare Private",
         Subtitle = "Key System",
-        Note = "Join our discord (discord.gg/MsgpWXC322)",
+        Note = "Join our discord (discord.gg/zoware)",
         FileName = "ZoWareV3.3.0-B_Key",
         SaveKey = false,
-        GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
         Key = ""
     }
 })
