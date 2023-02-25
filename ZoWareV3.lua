@@ -21,7 +21,7 @@ local Window = Rayfield:CreateWindow({
         FileName = "ZoWareV3.3.0-B_Key",
         SaveKey = false,
         GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-        Key = "https://rentry.co/z0w4r3keeeye33y/raw"
+        Key = ""
     }
 })
 
