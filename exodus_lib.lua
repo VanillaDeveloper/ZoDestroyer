@@ -3030,7 +3030,7 @@ end
 
 function library:CreateConfig(name)
     if name ~= "auto_load" then
-        return self:CreateFile("configs", name)
+        return self:CreateFile("zuwereee/configs", name)
     end
 end
 
@@ -3080,7 +3080,7 @@ end
 
 function library:LoadConfig(name)
     if typeof(name) == "string" then
-        local file = self:GetFile("configs", name, self.extension)
+        local file = self:GetFile("zuwereee/configs", name, self.extension)
 
         if file then
             self.current_config = name
