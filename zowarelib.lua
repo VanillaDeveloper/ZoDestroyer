@@ -1130,20 +1130,20 @@ local themes = {
         ["Dropdown Option Background"] = Color3.fromRGB(19, 19, 23)
     },
       Summer = {
-  Accent = "9a873a",
-  ["Object Background"] = "1d1b19",
-  ["Section Background"] = "161412",
-  ["Window Background"] = "24221e",
-  ["Tab Background"] = "181614",
-  ["Disabled Text"] = "6e6a64",
-  ["Tab Border"] = "37322d",
-  ["Section Border"] = "2d2823",
-  ["Window Border"] = "312f2d",
-  Text = "bebab4",
-  ["Dropdown Option Background"] = "171413",
-  ["Tab Toggle Background"] = "201e1c",
-  ["Object Border"] = "232327"
-}
+        ["Accent"] = Color3.fromRGB(154,135,58),
+        ["Window Background"] = Color3.fromRGB(36,34,30),
+        ["Window Border"] = Color3.fromRGB(49,47,45),
+        ["Tab Background"] = Color3.fromRGB(24,22,20),
+        ["Tab Border"] = Color3.fromRGB(55,50,45),
+        ["Tab Toggle Background"] = Color3.fromRGB(32,30,28),
+        ["Section Background"] = Color3.fromRGB(22,20,18),
+        ["Section Border"] = Color3.fromRGB(45,40,35),
+        ["Text"] = Color3.fromRGB(190,186,180),
+        ["Disabled Text"] = Color3.fromRGB(110,106,100),
+        ["Object Background"] = Color3.fromRGB(29,27,25),
+        ["Object Border"] = Color3.fromRGB(35,35,39),
+        ["Dropdown Option Background"] = Color3.fromRGB(23,20,19)
+    }
 }
 
 local themeobjects = {}
