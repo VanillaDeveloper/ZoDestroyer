@@ -2,7 +2,6 @@ local ProbabilityCalculator = {}
 ProbabilityCalculator.__index = ProbabilityCalculator
 
 function ProbabilityCalculator.calculate(chances)
-	task.spawn(function()
 		local total = 0
 		for _, chance in pairs(chances) do
 			total += chance
@@ -18,7 +17,6 @@ function ProbabilityCalculator.calculate(chances)
 		end
 
 		return nil
-	end)
 end
 
 return ProbabilityCalculator
