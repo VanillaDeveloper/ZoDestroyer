@@ -2,7 +2,7 @@ local ProbabilityCalculator = {}
 ProbabilityCalculator.__index = ProbabilityCalculator
 
 function ProbabilityCalculator.calculate(chances)
-		local total = 0
+		local total = 0 --kk
 		for _, chance in pairs(chances) do
 			total += chance
 		end
