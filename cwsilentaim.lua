@@ -1,3 +1,5 @@
+-- // @ syn.o @ 2023
+
 if _G.PredictionVal == nil then
 	_G.PredictionVal = 0.19
 end
